@@ -1,0 +1,221 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clew Partners</title>
+  <meta name="description" content="Clew Partners">
+  <style>
+    * { box-sizing: border-box; }
+    html, body { width: 100%; min-height: 100%; margin: 0; }
+    body { overflow: hidden; background: #fff; }
+    main { position: relative; height: 100vh; }
+    .hero {
+      position: relative;
+      height: 78.571429vh;
+      background: #091725 url("assets/columbus-circle-clew.jpg") center center / cover no-repeat;
+    }
+    .hero-message {
+      position: absolute;
+      top: 47%;
+      z-index: 1;
+      width: 35%;
+      margin: 0;
+      transform: translateY(-50%);
+      color: #f2f3f3;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 700;
+      letter-spacing: -.05em;
+    }
+    .hero-message.left { left: 5%; text-align: left; }
+    .hero-message.right { right: 5%; text-align: right; }
+    .hero-message .supporting {
+      display: block;
+      font-size: clamp(30px, 3.2vw, 52px);
+      line-height: 1;
+    }
+    .hero-message .emphasis {
+      display: inline-block;
+      margin-top: .08em;
+      padding-bottom: .08em;
+      border-bottom: 3px solid #f2f3f3;
+      font-size: clamp(40px, 4.25vw, 70px);
+      line-height: .98;
+      white-space: nowrap;
+    }
+    .hero-message.right .supporting { margin-top: .18em; }
+    @media (max-width: 760px) {
+      .hero-message { width: 38%; }
+      .hero-message.left { left: 3%; }
+      .hero-message.right { right: 3%; }
+      .hero-message .supporting { font-size: clamp(18px, 4vw, 30px); }
+      .hero-message .emphasis { font-size: clamp(23px, 5vw, 38px); border-bottom-width: 2px; }
+    }
+    .menu-zone {
+      position: absolute;
+      z-index: 5;
+      top: 14px;
+      left: 14px;
+      width: 104px;
+      height: 92px;
+      padding: 10px;
+    }
+    .menu-panel {
+      display: flex;
+      align-items: center;
+      width: 64px;
+      height: 58px;
+      overflow: hidden;
+      background: rgba(9,23,37,.72);
+      border: 1px solid rgba(242,243,243,.28);
+      backdrop-filter: blur(10px);
+      transition: width .38s cubic-bezier(.2,.75,.25,1), background .25s;
+    }
+    .menu-zone:hover .menu-panel,
+    .menu-zone:focus-within .menu-panel,
+    .menu-zone.open .menu-panel { width: min(355px, calc(100vw - 48px)); background: rgba(9,23,37,.9); }
+    .menu-trigger {
+      flex: 0 0 62px;
+      width: 62px;
+      height: 56px;
+      display: grid;
+      place-content: center;
+      gap: 6px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+    }
+    .menu-trigger span { display: block; width: 26px; height: 3px; background: #f2f3f3; }
+    .menu-links { display: flex; align-items: center; gap: .42em; padding: 0 24px 0 9px; white-space: nowrap; }
+    .menu-links a {
+      color: #f2f3f3;
+      font: 700 18px/1 Arial, Helvetica, sans-serif;
+      text-decoration: none;
+      opacity: 0;
+      filter: blur(4px);
+      transform: translateX(-14px) scale(.96);
+      transform-origin: left center;
+      transition: opacity .38s ease, transform .42s cubic-bezier(.2,.78,.24,1), filter .38s ease;
+    }
+    .menu-zone:hover .menu-links a,
+    .menu-zone:focus-within .menu-links a,
+    .menu-zone.open .menu-links a { opacity: 1; filter: blur(0); transform: translateX(0) scale(1); }
+    .menu-zone:hover .menu-links a:nth-child(1), .menu-zone:focus-within .menu-links a:nth-child(1), .menu-zone.open .menu-links a:nth-child(1) { transition-delay: .14s; }
+    .menu-zone:hover .menu-links a:nth-child(2), .menu-zone:focus-within .menu-links a:nth-child(2), .menu-zone.open .menu-links a:nth-child(2) { transition-delay: .30s; }
+    .menu-zone:hover .menu-links a:nth-child(3), .menu-zone:focus-within .menu-links a:nth-child(3), .menu-zone.open .menu-links a:nth-child(3) { transition-delay: .46s; }
+    .menu-zone:hover .menu-links a:nth-child(4), .menu-zone:focus-within .menu-links a:nth-child(4), .menu-zone.open .menu-links a:nth-child(4) { transition-delay: .62s; }
+    @media (prefers-reduced-motion: reduce) {
+      .menu-panel, .menu-links a { transition: none !important; transition-delay: 0s !important; }
+    }
+    .white-space { height: 21.428571vh; background: #fff; }
+    .cards {
+      position: absolute;
+      z-index: 2;
+      top: 68vh;
+      left: 50%;
+      display: flex;
+      align-items: flex-start;
+      width: min(78vw, 1080px);
+      height: 29vh;
+      min-height: 180px;
+      transform: translateX(-50%);
+      overflow-x: auto;
+      overflow-y: hidden;
+      scrollbar-width: thin;
+      scrollbar-color: #3d5872 rgba(37,56,79,.16);
+    }
+    .cards::-webkit-scrollbar { height: 6px; }
+    .cards::-webkit-scrollbar-track { background: rgba(37,56,79,.16); }
+    .cards::-webkit-scrollbar-thumb { background: #3d5872; border-radius: 999px; }
+    .card {
+      flex: 0 0 33.333333%;
+      height: 25vh;
+      min-height: 180px;
+      display: grid;
+      grid-template-rows: 3fr 1fr;
+      gap: 14px;
+      padding: 18px;
+      background: #25384f;
+      border-right: 1px solid rgba(255,255,255,.45);
+    }
+    .image-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .image-placeholder {
+      display: grid;
+      place-items: center;
+      min-width: 0;
+      background: #dce3ea;
+      color: #60758a;
+      font: 600 13px/1 Arial, sans-serif;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .text-placeholder {
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      background: rgba(255,255,255,.12);
+      color: #fff;
+      font: 500 14px/1.2 Arial, sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <nav class="menu-zone" aria-label="Primary navigation">
+      <div class="menu-panel">
+        <button class="menu-trigger" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+        <div class="menu-links" aria-label="How we help connect"><a href="#">How</a><a href="#">we</a><a href="#">help</a><a href="#">connect</a></div>
+      </div>
+    </nav>
+    <section class="hero" role="img" aria-label="Aerial view of Columbus Circle with the Clew sculpture at its center">
+      <p class="hero-message left"><span class="supporting">Focus on</span><span class="emphasis">closing deals</span></p>
+      <p class="hero-message right"><span class="emphasis">Not searching</span><span class="supporting">for them.</span></p>
+    </section>
+    <div class="white-space" aria-hidden="true"></div>
+    <div class="cards" aria-label="Three featured cards">
+      <article class="card"><div class="image-row"><div class="image-placeholder">Image</div><div class="image-placeholder">Image</div></div><div class="text-placeholder">Text placeholder</div></article>
+      <article class="card"><div class="image-row"><div class="image-placeholder">Image</div><div class="image-placeholder">Image</div></div><div class="text-placeholder">Text placeholder</div></article>
+      <article class="card"><div class="image-row"><div class="image-placeholder">Image</div><div class="image-placeholder">Image</div></div><div class="text-placeholder">Text placeholder</div></article>
+      <article class="card"><div class="image-row"><div class="image-placeholder">Image</div><div class="image-placeholder">Image</div></div><div class="text-placeholder">Text placeholder</div></article>
+      <article class="card"><div class="image-row"><div class="image-placeholder">Image</div><div class="image-placeholder">Image</div></div><div class="text-placeholder">Text placeholder</div></article>
+      <article class="card"><div class="image-row"><div class="image-placeholder">Image</div><div class="image-placeholder">Image</div></div><div class="text-placeholder">Text placeholder</div></article>
+    </div>
+  </main>
+  <script>
+    const carousel = document.querySelector('.cards');
+    const menuZone = document.querySelector('.menu-zone');
+    const menuTrigger = document.querySelector('.menu-trigger');
+    menuTrigger.addEventListener('click', () => {
+      const isOpen = menuZone.classList.toggle('open');
+      menuTrigger.setAttribute('aria-expanded', String(isOpen));
+    });
+    const cardTemplate = carousel.querySelector('.card');
+    for (let index = 0; index < 10; index += 1) {
+      carousel.appendChild(cardTemplate.cloneNode(true));
+    }
+
+    let pointerX = window.innerWidth / 2;
+    let pointerY = window.innerHeight / 2;
+    window.addEventListener('pointermove', (event) => {
+      pointerX = event.clientX;
+      pointerY = event.clientY;
+    }, { passive: true });
+
+    window.addEventListener('wheel', (event) => {
+      const bounds = carousel.getBoundingClientRect();
+      const hoverPadding = 90;
+      const isNearCards = pointerX >= bounds.left - hoverPadding &&
+        pointerX <= bounds.right + hoverPadding &&
+        pointerY >= bounds.top - hoverPadding &&
+        pointerY <= bounds.bottom + hoverPadding;
+
+      if (!isNearCards) return;
+      event.preventDefault();
+      const movement = Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY;
+      carousel.scrollLeft += movement * 1.5;
+    }, { passive: false });
+  </script>
+</body>
+</html>
