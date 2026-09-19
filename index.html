@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -15,6 +14,48 @@
       position: relative;
       height: 78.571429vh;
       background: #091725 url("assets/columbus-circle-clew.jpg") center center / cover no-repeat;
+      overflow: hidden;
+    }
+    .clew-orb {
+      position: absolute;
+      z-index: 2;
+      top: 47.5%;
+      left: 50%;
+      width: clamp(180px, 20.4vw, 300px);
+      aspect-ratio: 1;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      isolation: isolate;
+      filter: drop-shadow(0 18px 24px rgba(2, 8, 15, .34));
+    }
+    .clew-orb::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: 3%;
+      border-radius: 50%;
+      background: radial-gradient(circle,
+        rgba(235, 241, 246, .38) 0%,
+        rgba(190, 215, 232, .25) 32%,
+        rgba(214, 189, 145, .13) 52%,
+        rgba(9, 23, 37, 0) 73%);
+      filter: blur(22px);
+      transform: scale(1.32);
+      animation: clew-aura 5.8s ease-in-out infinite;
+    }
+    .clew-orb canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      animation: clew-hover 5.8s ease-in-out infinite;
+    }
+    @keyframes clew-hover {
+      0%, 100% { transform: translateY(0) rotate(-.25deg); }
+      50% { transform: translateY(-7px) rotate(.25deg); }
+    }
+    @keyframes clew-aura {
+      0%, 100% { opacity: .72; transform: scale(1.2); }
+      50% { opacity: 1; transform: scale(1.3); }
     }
     .hero-message {
       position: absolute;
@@ -25,22 +66,22 @@
       transform: translateY(-50%);
       color: #f2f3f3;
       font-family: Arial, Helvetica, sans-serif;
-      font-weight: 700;
+      font-weight: 250;
       letter-spacing: -.05em;
     }
     .hero-message.left { left: 5%; text-align: left; }
     .hero-message.right { right: 5%; text-align: right; }
     .hero-message .supporting {
       display: block;
-      font-size: clamp(30px, 3.2vw, 52px);
+      font-size: clamp(42px, 4.5vw, 72px);
+      font-weight: 250;
       line-height: 1;
     }
     .hero-message .emphasis {
       display: inline-block;
       margin-top: .08em;
-      padding-bottom: .08em;
-      border-bottom: 3px solid #f2f3f3;
-      font-size: clamp(40px, 4.25vw, 70px);
+      font-size: clamp(42px, 4.5vw, 72px);
+      font-weight: 550;
       line-height: .98;
       white-space: nowrap;
     }
@@ -49,8 +90,9 @@
       .hero-message { width: 38%; }
       .hero-message.left { left: 3%; }
       .hero-message.right { right: 3%; }
-      .hero-message .supporting { font-size: clamp(18px, 4vw, 30px); }
-      .hero-message .emphasis { font-size: clamp(23px, 5vw, 38px); border-bottom-width: 2px; }
+      .hero-message .supporting { font-size: clamp(25.5px, 5.7vw, 42px); }
+      .hero-message .emphasis { font-size: clamp(25.5px, 5.7vw, 42px); }
+      .clew-orb { width: clamp(134px, 30vw, 198px); }
     }
     .menu-zone {
       position: absolute;
@@ -74,7 +116,7 @@
     }
     .menu-zone:hover .menu-panel,
     .menu-zone:focus-within .menu-panel,
-    .menu-zone.open .menu-panel { width: min(355px, calc(100vw - 48px)); background: rgba(9,23,37,.9); }
+    .menu-zone.open .menu-panel { width: min(520px, calc(100vw - 48px)); background: rgba(9,23,37,.9); }
     .menu-trigger {
       flex: 0 0 62px;
       width: 62px;
@@ -88,26 +130,31 @@
       cursor: pointer;
     }
     .menu-trigger span { display: block; width: 26px; height: 3px; background: #f2f3f3; }
-    .menu-links { display: flex; align-items: center; gap: .42em; padding: 0 24px 0 9px; white-space: nowrap; }
+    .menu-links { display: flex; align-items: center; gap: .72em; padding: 0 24px 0 9px; white-space: nowrap; }
     .menu-links a {
       color: #f2f3f3;
-      font: 700 18px/1 Arial, Helvetica, sans-serif;
+      font: 700 36px/1 Arial, Helvetica, sans-serif;
       text-decoration: none;
       opacity: 0;
       filter: blur(4px);
       transform: translateX(-14px) scale(.96);
       transform-origin: left center;
-      transition: opacity .38s ease, transform .42s cubic-bezier(.2,.78,.24,1), filter .38s ease;
+      transition: opacity .55s ease, transform .62s cubic-bezier(.2,.78,.24,1), filter .55s ease;
     }
     .menu-zone:hover .menu-links a,
     .menu-zone:focus-within .menu-links a,
     .menu-zone.open .menu-links a { opacity: 1; filter: blur(0); transform: translateX(0) scale(1); }
-    .menu-zone:hover .menu-links a:nth-child(1), .menu-zone:focus-within .menu-links a:nth-child(1), .menu-zone.open .menu-links a:nth-child(1) { transition-delay: .14s; }
-    .menu-zone:hover .menu-links a:nth-child(2), .menu-zone:focus-within .menu-links a:nth-child(2), .menu-zone.open .menu-links a:nth-child(2) { transition-delay: .30s; }
-    .menu-zone:hover .menu-links a:nth-child(3), .menu-zone:focus-within .menu-links a:nth-child(3), .menu-zone.open .menu-links a:nth-child(3) { transition-delay: .46s; }
-    .menu-zone:hover .menu-links a:nth-child(4), .menu-zone:focus-within .menu-links a:nth-child(4), .menu-zone.open .menu-links a:nth-child(4) { transition-delay: .62s; }
+    .menu-zone:hover .menu-links a:nth-child(1), .menu-zone:focus-within .menu-links a:nth-child(1), .menu-zone.open .menu-links a:nth-child(1) { transition-delay: .18s; }
+    .menu-zone:hover .menu-links a:nth-child(2), .menu-zone:focus-within .menu-links a:nth-child(2), .menu-zone.open .menu-links a:nth-child(2) { transition-delay: .56s; }
+    .menu-zone:hover .menu-links a:nth-child(3), .menu-zone:focus-within .menu-links a:nth-child(3), .menu-zone.open .menu-links a:nth-child(3) { transition-delay: 1.08s; }
+    .menu-zone:hover .menu-links a:nth-child(4), .menu-zone:focus-within .menu-links a:nth-child(4), .menu-zone.open .menu-links a:nth-child(4) { transition-delay: 1.72s; }
+    @media (max-width: 760px) {
+      .menu-links { gap: .5em; padding-right: 16px; }
+      .menu-links a { font-size: 22px; }
+    }
     @media (prefers-reduced-motion: reduce) {
       .menu-panel, .menu-links a { transition: none !important; transition-delay: 0s !important; }
+      .clew-orb::before, .clew-orb canvas { animation: none !important; }
     }
     .white-space { height: 21.428571vh; background: #fff; }
     .cards {
@@ -117,7 +164,8 @@
       left: 50%;
       display: flex;
       align-items: flex-start;
-      width: min(78vw, 1080px);
+      gap: 22px;
+      width: min(82vw, 1124px);
       height: 29vh;
       min-height: 180px;
       transform: translateX(-50%);
@@ -130,7 +178,7 @@
     .cards::-webkit-scrollbar-track { background: rgba(37,56,79,.16); }
     .cards::-webkit-scrollbar-thumb { background: #3d5872; border-radius: 999px; }
     .card {
-      flex: 0 0 33.333333%;
+      flex: 0 0 calc((100% - 44px) / 3);
       height: 25vh;
       min-height: 180px;
       display: grid;
@@ -138,7 +186,8 @@
       gap: 14px;
       padding: 18px;
       background: #25384f;
-      border-right: 1px solid rgba(255,255,255,.45);
+      border: 1px solid rgba(255,255,255,.16);
+      box-shadow: 0 12px 28px rgba(9,23,37,.12);
     }
     .image-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .image-placeholder {
@@ -166,15 +215,16 @@
     <nav class="menu-zone" aria-label="Primary navigation">
       <div class="menu-panel">
         <button class="menu-trigger" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
-        <div class="menu-links" aria-label="How we help connect"><a href="#">How</a><a href="#">we</a><a href="#">help</a><a href="#">connect</a></div>
+        <div class="menu-links" aria-label="How We Help Connect"><a href="#">How</a><a href="#">We</a><a href="#">Help</a><a href="#">Connect</a></div>
       </div>
     </nav>
     <section class="hero" role="img" aria-label="Aerial view of Columbus Circle with the Clew sculpture at its center">
       <p class="hero-message left"><span class="supporting">Focus on</span><span class="emphasis">closing deals</span></p>
-      <p class="hero-message right"><span class="emphasis">Not searching</span><span class="supporting">for them.</span></p>
+      <div class="clew-orb" aria-hidden="true"><canvas id="clew-orb-canvas"></canvas></div>
+      <p class="hero-message right"><span class="emphasis">Not searching</span><span class="supporting">for them</span></p>
     </section>
     <div class="white-space" aria-hidden="true"></div>
-    <div class="cards" aria-label="Three featured cards">
+    <div class="cards" aria-label="Featured cards" tabindex="0">
       <article class="card"><div class="image-row"><div class="image-placeholder">Image</div><div class="image-placeholder">Image</div></div><div class="text-placeholder">Text placeholder</div></article>
       <article class="card"><div class="image-row"><div class="image-placeholder">Image</div><div class="image-placeholder">Image</div></div><div class="text-placeholder">Text placeholder</div></article>
       <article class="card"><div class="image-row"><div class="image-placeholder">Image</div><div class="image-placeholder">Image</div></div><div class="text-placeholder">Text placeholder</div></article>
@@ -183,6 +233,7 @@
       <article class="card"><div class="image-row"><div class="image-placeholder">Image</div><div class="image-placeholder">Image</div></div><div class="text-placeholder">Text placeholder</div></article>
     </div>
   </main>
+  <script src="assets/clew-orb.js"></script>
   <script>
     const carousel = document.querySelector('.cards');
     const menuZone = document.querySelector('.menu-zone');
@@ -195,6 +246,35 @@
     for (let index = 0; index < 10; index += 1) {
       carousel.appendChild(cardTemplate.cloneNode(true));
     }
+
+    const manualScrollMultiplier = 1.5;
+    const autoPixelsPerFrameAt60 = manualScrollMultiplier * 1.5;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let carouselHovered = false;
+    let carouselFocused = false;
+    let carouselPressed = false;
+    let previousFrame = performance.now();
+
+    carousel.addEventListener('mouseenter', () => { carouselHovered = true; });
+    carousel.addEventListener('mouseleave', () => { carouselHovered = false; });
+    carousel.addEventListener('focusin', () => { carouselFocused = true; });
+    carousel.addEventListener('focusout', () => { carouselFocused = false; });
+    carousel.addEventListener('pointerdown', () => { carouselPressed = true; });
+    window.addEventListener('pointerup', () => { carouselPressed = false; }, { passive: true });
+    window.addEventListener('pointercancel', () => { carouselPressed = false; }, { passive: true });
+
+    const autoScrollCards = (now) => {
+      const elapsedFrames = Math.min((now - previousFrame) / (1000 / 60), 3);
+      previousFrame = now;
+      const paused = carouselHovered || carouselFocused || carouselPressed ||
+        document.hidden || reduceMotion.matches;
+
+      if (!paused && carousel.scrollLeft < carousel.scrollWidth - carousel.clientWidth) {
+        carousel.scrollLeft += autoPixelsPerFrameAt60 * elapsedFrames;
+      }
+      requestAnimationFrame(autoScrollCards);
+    };
+    requestAnimationFrame(autoScrollCards);
 
     let pointerX = window.innerWidth / 2;
     let pointerY = window.innerHeight / 2;
@@ -214,7 +294,7 @@
       if (!isNearCards) return;
       event.preventDefault();
       const movement = Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY;
-      carousel.scrollLeft += movement * 1.5;
+      carousel.scrollLeft += movement * manualScrollMultiplier;
     }, { passive: false });
   </script>
 </body>
